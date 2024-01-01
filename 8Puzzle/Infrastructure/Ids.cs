@@ -22,7 +22,7 @@ namespace _8Puzzle.Infrastructure
 
         public Result DepthLimitedSearch(int[,] problem, int depth)
         {
-            return RecursiveDepthLimitedSearch(new Node(problem), depth);
+            return RecursiveDepthLimitedSearch(new IdsNode(problem), depth);
         }
 
         public async Task IterativeDeepeningSearch(int[,] problem)
@@ -43,10 +43,10 @@ namespace _8Puzzle.Infrastructure
             }
         }
 
-        public Result RecursiveDepthLimitedSearch(Node node, int limit)
+        public Result RecursiveDepthLimitedSearch(IdsNode node, int limit)
         {
             _iterations++;
-            if (Node.GoalTest(node.Board))
+            if (IdsNode.GoalTest(node.Board))
             {
                 return new Result(node, State.Result);
             }
@@ -57,7 +57,7 @@ namespace _8Puzzle.Infrastructure
             else
             {
                 node.Expand();
-                foreach (Node child in node.Childs)
+                foreach (IdsNode child in node.Childs)
                 {
                     _nodesGenerated++;
                     Result result = RecursiveDepthLimitedSearch(child, limit);

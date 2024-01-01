@@ -11,12 +11,12 @@ namespace _8Puzzle.Models
 {
     public class Result
     {
-        public Node Node { get; }
+        public IdsNode Node { get; }
         public State State { get; }
         public int Depth { get; }
         public int PathCost { get; }
 
-        public Result(Node node, State state)
+        public Result(IdsNode node, State state)
         {
             Node = node;
             Depth = node.Depth;

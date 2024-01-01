@@ -13,6 +13,6 @@ namespace _8Puzzle.Core
     {
         Task IterativeDeepeningSearch(int[,] problem);
         Result DepthLimitedSearch(int[,] problem, int depth);
-        Result RecursiveDepthLimitedSearch(Node node, int limit);
+        Result RecursiveDepthLimitedSearch(IdsNode node, int limit);
     }
 }

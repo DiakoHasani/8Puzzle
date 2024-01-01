@@ -9,7 +9,7 @@ namespace _8Puzzle.Core
     public interface IPrintService
     {
         Task PrintBoard(int[,] board);
-        void PrintStats(int iterations, int nodesGenerated, int depth);
+        void PrintStats(params int[] values);
         void SetTextPrintBoard(int row, int col, int value);
         void SetColorPrintBoard(int row, int col, int value);
     }
