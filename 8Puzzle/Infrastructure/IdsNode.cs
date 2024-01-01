@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace _8Puzzle.Infrastructure
 {
-    public class Node
+    public class IdsNode
     {
         public int[,] Board { get; }
         public int Depth { get; }
-        public Node ParentNode { get; }
-        public List<Node> Childs { get; }
+        public IdsNode ParentNode { get; }
+        public List<IdsNode> Childs { get; }
         public int PathCost { get; internal set; }
-        public Node(int[,] board)
+        public IdsNode(int[,] board)
         {
             Board = board;
             ParentNode = null;
             Depth = 0;
             PathCost = Depth + Heuristic(board);
-            Childs = new List<Node>();
+            Childs = new List<IdsNode>();
         }
 
-        private Node(Node parent, int[,] board)
+        private IdsNode(IdsNode parent, int[,] board)
         {
             Board = board;
             ParentNode = parent;
             Depth = parent.Depth + 1;
             PathCost = Depth + Heuristic(board);
-            Childs = new List<Node>();
+            Childs = new List<IdsNode>();
         }
 
         public void Expand()
@@ -58,15 +58,15 @@ namespace _8Puzzle.Infrastructure
 
                 if (ParentNode is null || IsNotStepBack(board, ParentNode.Board))
                 {
-                    Childs.Add(new Node(this, board));
+                    Childs.Add(new IdsNode(this, board));
                 }
             }
         }
 
-        public List<Node> PathToSolution()
+        public List<IdsNode> PathToSolution()
         {
-            List<Node> nodes = new List<Node>();
-            Node node = this;
+            List<IdsNode> nodes = new List<IdsNode>();
+            IdsNode node = this;
             while (node.ParentNode != null)
             {
                 nodes.Add(node);

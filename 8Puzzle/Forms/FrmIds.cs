@@ -10,37 +10,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _8Puzzle
+namespace _8Puzzle.Forms
 {
-    public partial class Form1 : Form, IPrintService
+    public partial class FrmIds : Form, IPrintService
     {
-        private readonly IPuzzle _puzzle;
         private IIds _ids;
         int[,] _board;
-
-        public Form1()
+        public FrmIds()
         {
             InitializeComponent();
             _board = new int[3, 3] { { 3, 8, 1 }, { 6, 2, 5 }, { 0, 4, 7 } };
-            _puzzle = new Puzzle(_board);
             _ids = new Ids(this);
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void FrmIds_Load(object sender, EventArgs e)
         {
-            await PrintBoard(_puzzle.GetBoard());
-            await _ids.IterativeDeepeningSearch(_puzzle.GetBoard());
+            await PrintBoard(_board);
+            await _ids.IterativeDeepeningSearch(_board);
         }
-
         private async Task Run()
         {
             _board = new int[3, 3] { { 3, 8, 1 }, { 6, 2, 5 }, { 0, 4, 7 } };
-            _puzzle.SetBoard(_board);
             _ids = new Ids(this);
             lbl_depth.Text = "0";
             lbl_iterations.Text = "0";
             lbl_nodesGenerated.Text = "0";
-            await _ids.IterativeDeepeningSearch(_puzzle.GetBoard());
+            await _ids.IterativeDeepeningSearch(_board);
         }
 
         public async Task PrintBoard(int[,] board)
@@ -142,11 +137,11 @@ namespace _8Puzzle
             return value == 0 ? Color.Gold : Color.White;
         }
 
-        public void PrintStats(int iterations, int nodesGenerated, int depth)
+        public void PrintStats(params int[] values)
         {
-            lbl_iterations.Text = iterations.ToString();
-            lbl_nodesGenerated.Text = nodesGenerated.ToString();
-            lbl_depth.Text = depth.ToString();
+            lbl_iterations.Text = values[0].ToString("N0");
+            lbl_nodesGenerated.Text = values[1].ToString("N0");
+            lbl_depth.Text = values[2].ToString("N0");
         }
 
         private async void btn_refresh_Click(object sender, EventArgs e)
